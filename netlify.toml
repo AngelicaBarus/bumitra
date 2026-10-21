@@ -1,0 +1,11 @@
+[[redirects]]
+  from = "/api/bmkg/*"
+  to = "https://api.bmkg.go.id/:splat"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/bnpb/*"
+  to = "https://gis.bnpb.go.id/:splat"
+  status = 200
+  force = true
