@@ -1,5 +1,5 @@
 export const slogan = "Kenali Bahayanya, Lindungi Keluarga, Jaga Lingkungan!";
-export const narasi = "Halo, Bapak dan Ibu! Selamat datang di SIGMA-BUMI. Website ini membantu Anda mengenali risiko banjir dan tanah longsor di sekitar tempat tinggal. Tidak perlu bingung! Pilih informasi yang ingin Anda ketahui di bawah ini.";
+export const narasi = "Halo, Bapak dan Ibu! Selamat datang di BUMITRA. Website ini membantu Anda mengenali risiko banjir dan tanah longsor di sekitar tempat tinggal. Tidak perlu bingung! Pilih informasi yang ingin Anda ketahui di bawah ini.";
 
 export const menu = [
   { to: "banjir", e: "🌧️", t: "Waspada Banjir", d: "Kenali tanda bahaya dan cara menyelamatkan diri.", c: "blue" },

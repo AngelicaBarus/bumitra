@@ -13,7 +13,7 @@ const categories = [
 ];
 const normalize=(s)=>s.toLowerCase().replace(/[^a-z0-9\s]/g," ").replace(/\s+/g," ").trim();
 const A=(k)=>answers[k];
-const SRC="Sumber: panduan SIGMA-BUMI";
+const SRC="Sumber: panduan BUMITRA";
 const ok=(text,suggest)=>({text,kind:"materi",suggest});
 const info=(text,suggest)=>({text,kind:"info",suggest});
 const STOP=new Set("apa yang di ke dari dan atau untuk dengan pada itu ini saya kita kami anda adalah apakah bagaimana mengapa kenapa bisa dapat harus perlu cara saja ada tidak jika bila kalau agar supaya akan sudah belum sebagai oleh dalam lebih juga mau tolong dong ya kah lah".split(" "));
@@ -32,7 +32,7 @@ function answerFor(question){
  const q=normalize(question);
  if(!q) return info("Silakan tulis atau pilih pertanyaan.");
  if(answers[q]) return ok(answers[q]);
- if(/^(halo|hai|hi|hello|selamat (pagi|siang|sore|malam)|assalamualaikum|permisi)\b/.test(q)&&q.split(" ").length<=4) return info("Halo! Saya Sahabat SIGMA. Saya bisa menjelaskan materi tentang banjir, tanah longsor, cuaca, peta risiko, persiapan keluarga, dan menjaga lingkungan.",["Apa tanda-tanda banjir?","Apa tanda-tanda tanah longsor?","Bagaimana cara menggunakan peta risiko?"]);
+ if(/^(halo|hai|hi|hello|selamat (pagi|siang|sore|malam)|assalamualaikum|permisi)\b/.test(q)&&q.split(" ").length<=4) return info("Halo! Saya Sahabat BUMITRA. Saya bisa menjelaskan materi tentang banjir, tanah longsor, cuaca, peta risiko, persiapan keluarga, dan menjaga lingkungan.",["Apa tanda-tanda banjir?","Apa tanda-tanda tanah longsor?","Bagaimana cara menggunakan peta risiko?"]);
  if(/^(terima kasih|makasih|thanks|thank you|oke|ok|siap)\b/.test(q)&&q.split(" ").length<=4) return info("Sama-sama. Tetap waspada dan pantau informasi resmi ya.");
  if(/(tolong|darurat|terjebak|hanyut|terkubur|tertimbun|korban|terendam)/.test(q)&&/(sekarang|lagi|sedang|saat ini|rumah|saya|kami|keluarga)/.test(q)&&!/(apa yang harus|bagaimana|cara)/.test(q)) return info("Jika Anda atau orang lain dalam bahaya sekarang, segera hubungi 112 atau petugas setempat dan menjauh dari lokasi berbahaya jika jalurnya aman. Saya hanya chatbot edukasi dan tidak dapat mengirim bantuan.\n\nInformasi 112 Kota Medan: https://portalsmartcity.medan.go.id/welcome/detail_call");
  const realtime=/(hari ini|sekarang|saat ini|besok|lusa|nanti|minggu ini|bulan ini|malam ini|barusan|terbaru|terkini|kemarin)/.test(q)&&/(cuaca|hujan|banjir|longsor|suhu|angin|bencana|status|siaga|peringatan)/.test(q);
@@ -40,8 +40,8 @@ function answerFor(question){
  const placeRisk=/(apakah|seberapa|tingkat|status).*(rawan|aman|bahaya|risiko|terdampak).*(di|daerah|wilayah|desa|kelurahan|kecamatan|kota|kabupaten|provinsi|rumah saya|tempat saya)\b|(apakah|apa).*(desa|kelurahan|kecamatan|kota|kabupaten|daerah|wilayah|rumah) .*(rawan|aman|terdampak)/.test(q)&&!/(cara|bagaimana|langkah|tanda|ciri|persiapan|arti|warna)/.test(q);
  if(realtime||predict||placeRisk) return info("Saya tidak punya data cuaca atau kejadian terkini, dan tidak bisa memprediksi atau menebak kondisi suatu lokasi.\n\n• Prakiraan cuaca per desa/kelurahan: menu Cuaca (data BMKG).\n• Tingkat bahaya banjir/longsor di suatu lokasi: menu Peta Risiko (data InaRISK BNPB).\n• Peringatan dini resmi: https://www.bmkg.go.id/cuaca/peringatan-dini-cuaca\n\nJika keadaan mendesak, hubungi 112 atau BPBD setempat.");
  const other=q.match(/(gempa|tsunami|gunung berapi|erupsi|kebakaran|karhutla|puting beliung|angin kencang|badai|kekeringan|likuefaksi|abrasi|covid|pandemi)/);
- if(other&&!/(banjir|longsor)/.test(q)) return info("Materi SIGMA-BUMI berfokus pada banjir dan tanah longsor, jadi saya tidak punya panduan tentang "+other[1]+". Agar tidak keliru, ikuti informasi resmi.\n\n"+OFFICIAL);
- if(/banjir bandang/.test(q)) return info("Materi SIGMA-BUMI membahas banjir secara umum dan belum memuat panduan khusus banjir bandang. Untuk banjir bandang, ikuti arahan petugas. Panduan umum banjir:",TOPIC_HELP.banjir);
+ if(other&&!/(banjir|longsor)/.test(q)) return info("Materi BUMITRA berfokus pada banjir dan tanah longsor, jadi saya tidak punya panduan tentang "+other[1]+". Agar tidak keliru, ikuti informasi resmi.\n\n"+OFFICIAL);
+ if(/banjir bandang/.test(q)) return info("Materi BUMITRA membahas banjir secara umum dan belum memuat panduan khusus banjir bandang. Untuk banjir bandang, ikuti arahan petugas. Panduan umum banjir:",TOPIC_HELP.banjir);
  const flood=/(banjir|genangan|sungai meluap|air meluap)/.test(q), slide=/(longsor|lereng|tanah bergerak|tebing)/.test(q);
  if(flood&&!slide){
   if(/(sebelum|persiapan|antisipasi|cegah|mencegah|musim hujan)/.test(q)) return ok(A("apa yang harus dilakukan sebelum banjir?"));
@@ -80,7 +80,7 @@ function answerFor(question){
  if(/(persiapan|siapkan|menyiapkan|sebelum bencana|dokumen penting)/.test(q)) return ok(A("apa yang perlu disiapkan sebelum bencana?"));
  const near=closest(question);
  if(near.length) return info("Saya belum yakin maksud pertanyaan Anda. Apakah salah satu ini yang Anda maksud?",near);
- return info("Maaf, saya belum punya informasi tentang itu di materi SIGMA-BUMI, dan saya tidak ingin menjawab dengan menebak.\n\nSaya bisa membantu seputar banjir, tanah longsor, cuaca, peta risiko, persiapan keluarga, bantuan, dan menjaga lingkungan. Silakan pilih topik di bawah.\n\n"+OFFICIAL);
+ return info("Maaf, saya belum punya informasi tentang itu di materi BUMITRA, dan saya tidak ingin menjawab dengan menebak.\n\nSaya bisa membantu seputar banjir, tanah longsor, cuaca, peta risiko, persiapan keluarga, bantuan, dan menjaga lingkungan. Silakan pilih topik di bawah.\n\n"+OFFICIAL);
 }
 function getTopic(id){return categories.find(c=>c.id===id)}
 export default function Chatbot(){
@@ -91,13 +91,13 @@ export default function Chatbot(){
  function send(text=input){const value=text.trim();if(!value)return;setMessages(old=>[...old,{role:"user",text:value},{role:"bot",...answerFor(value)}]);setInput("");setShowTopics(false);}
  function reset(){setMessages([]);setActiveCategory("banjir");setShowTopics(true);setInput("")}
  return <>
-  {!open && <button className="chat-fab" aria-label="Buka Sahabat SIGMA" onClick={()=>setOpen(true)}><MessageCircle size={20}/><span>Sahabat SIGMA</span><span className="chat-fab-sparkle"><Sparkles size={12}/></span></button>}
-  {open&&<div className="chat-overlay" onMouseDown={e=>{if(e.target===e.currentTarget)setOpen(false)}}><section className="chat-panel chat-panel-new" aria-label="Sahabat SIGMA" role="dialog" aria-modal="true" aria-labelledby="chat-title">
-   <header className="chat-head-new"><div className="chat-avatar-new"><Bot size={25}/><span></span></div><div className="chat-head-copy"><strong id="chat-title">Sahabat SIGMA</strong><small><i></i> Teman belajar kesiapsiagaan</small></div><button className="chat-reset" onClick={reset} title="Mulai percakapan baru" aria-label="Mulai percakapan baru"><RotateCcw size={17}/></button><button className="chat-close-new" aria-label="Tutup chatbot" onClick={()=>setOpen(false)}><X size={20}/></button></header>
-   <div className="chat-safety-strip"><ShieldCheck size={15}/> Materi edukasi dari panduan SIGMA-BUMI. Bukan layanan darurat.</div>
+  {!open && <button className="chat-fab" aria-label="Buka Sahabat BUMITRA" onClick={()=>setOpen(true)}><MessageCircle size={20}/><span>Sahabat BUMITRA</span><span className="chat-fab-sparkle"><Sparkles size={12}/></span></button>}
+  {open&&<div className="chat-overlay" onMouseDown={e=>{if(e.target===e.currentTarget)setOpen(false)}}><section className="chat-panel chat-panel-new" aria-label="Sahabat BUMITRA" role="dialog" aria-modal="true" aria-labelledby="chat-title">
+   <header className="chat-head-new"><div className="chat-avatar-new"><Bot size={25}/><span></span></div><div className="chat-head-copy"><strong id="chat-title">Sahabat BUMITRA</strong><small><i></i> Teman belajar kesiapsiagaan</small></div><button className="chat-reset" onClick={reset} title="Mulai percakapan baru" aria-label="Mulai percakapan baru"><RotateCcw size={17}/></button><button className="chat-close-new" aria-label="Tutup chatbot" onClick={()=>setOpen(false)}><X size={20}/></button></header>
+   <div className="chat-safety-strip"><ShieldCheck size={15}/> Materi edukasi dari panduan BUMITRA. Bukan layanan darurat.</div>
    <div className="chat-thread" role="log" aria-live="polite">
     {messages.length===0&&<div className="chat-welcome"><div className="welcome-art"><div className="welcome-art-circle"><Bot size={35}/></div><span className="welcome-spark s1">✦</span><span className="welcome-spark s2">✧</span></div><span className="welcome-eyebrow">HALO, SAHABAT!</span><h2>Mau belajar apa<br/>hari ini?</h2><p>Pilih topik dan pertanyaan yang sudah disiapkan. Saya akan membantu menjelaskan dengan bahasa yang sederhana.</p><div className="welcome-pills"><span><Waves size={13}/> Banjir</span><span><Mountain size={13}/> Longsor</span><span><Leaf size={13}/> Lingkungan</span></div></div>}
-    {messages.map((m,i)=><div key={i} className={`chat-message-row ${m.role}`}><div className="message-avatar">{m.role==="bot"?<Bot size={16}/>:"K"}</div><div className="chat-message-content"><span className="message-name">{m.role==="bot"?"Sahabat SIGMA":"Anda"}</span><div className={`chat-bubble-new ${m.role}`}>{m.text.split("\n").map((line,j)=><span className="message-line" key={j}>{line||" "}</span>)}</div>{m.role==="bot"&&m.kind==="materi"&&<span className="message-source"><ShieldCheck size={12}/> {SRC}</span>}{m.role==="bot"&&m.suggest?.length>0&&<div className="chat-suggest">{m.suggest.map(q=><button key={q} onClick={()=>send(q)}>{q}<ArrowRight size={13}/></button>)}</div>}</div></div>)}<div ref={bottomRef}/>
+    {messages.map((m,i)=><div key={i} className={`chat-message-row ${m.role}`}><div className="message-avatar">{m.role==="bot"?<Bot size={16}/>:"K"}</div><div className="chat-message-content"><span className="message-name">{m.role==="bot"?"Sahabat BUMITRA":"Anda"}</span><div className={`chat-bubble-new ${m.role}`}>{m.text.split("\n").map((line,j)=><span className="message-line" key={j}>{line||" "}</span>)}</div>{m.role==="bot"&&m.kind==="materi"&&<span className="message-source"><ShieldCheck size={12}/> {SRC}</span>}{m.role==="bot"&&m.suggest?.length>0&&<div className="chat-suggest">{m.suggest.map(q=><button key={q} onClick={()=>send(q)}>{q}<ArrowRight size={13}/></button>)}</div>}</div></div>)}<div ref={bottomRef}/>
    </div>
    <div className="chat-question-area"><div className="question-area-heading"><div><span className="eyebrow">PANDUAN INTERAKTIF</span><strong>{showTopics?"Pilih topik edukasi":"Pertanyaan berikutnya"}</strong></div><button onClick={()=>setShowTopics(v=>!v)}>{showTopics?"Pertanyaan":"Topik"} <ChevronRight size={14}/></button></div>
     {showTopics?<div className="chat-category-grid">{categories.map(c=>{const I=c.icon;return <button key={c.id} className={`chat-category ${activeCategory===c.id?"selected":""}`} onClick={()=>{setActiveCategory(c.id);setShowTopics(false)}}><span className={"category-icon " + c.color}><I size={17}/></span><span>{c.label}</span><ChevronRight size={15}/></button>})}</div>:<div className="chat-topic-tabs">{categories.map(c=><button key={c.id} className={activeCategory===c.id?"active":""} onClick={()=>setActiveCategory(c.id)}>{c.label}</button>)}</div>}

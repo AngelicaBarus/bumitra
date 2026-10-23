@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, ArrowUpRight, CloudSun, HeartHandshake, Leaf, MapPin, Menu, Mountain, ShieldCheck, Waves, X, MessageCircle, Phone, ExternalLink, Siren, Info, House, MapPinned, LocateFixed } from "lucide-react";
+import { ArrowRight, ArrowUpRight, CloudSun, HeartHandshake, Leaf, MapPin, Menu, Mountain, ShieldCheck, Waves, X, MessageCircle, Phone, ExternalLink, Siren, Info, House, MapPinned, LocateFixed, Play } from "lucide-react";
 import Chatbot from "./components/Chatbot.jsx";
 import RiskMap from "./components/RiskMap.jsx";
 import WeatherPage from "./components/WeatherPage.jsx";
-import { HERO_BG } from "./config.js";
+import { HERO_BG, SITE } from "./config.js";
+import VideoModal from "./components/VideoModal.jsx";
 import NearbyHelp from "./components/NearbyHelp.jsx";
 import { TentangSection, KontakKomentar } from "./components/HomeSections.jsx";
 
@@ -39,7 +40,7 @@ function HelpPage(){
 
  <section className="hp-sec"><SecHead n="3" title={title} sub="Kontak resmi yang sudah diverifikasi untuk wilayah Anda."/>
  {!loc&&<div className="hp-empty-box neutral"><LocateFixed size={18}/><p>Kontak BPBD, rumah sakit, kepolisian, dan pemadam kebakaran akan tampil di sini setelah Anda menekan <b>Gunakan lokasi saya</b>, sesuai tempat Anda berada. Daftarnya ikut berubah jika Anda berpindah.</p></div>}
- {loc&&!shown.length&&<div className="hp-empty-box"><Info size={18}/><p>Kontak BPBD untuk <b>{loc.kab||loc.prov||"wilayah Anda"}</b> belum tersimpan di SIGMA-BUMI. Nomor yang belum terverifikasi sengaja tidak ditampilkan; gunakan 112, 115, 117 di atas atau cari kontak resminya.</p><a className="hp-link" href={bpbdSearch} target="_blank" rel="noreferrer">Cari kontak BPBD {loc.kab||loc.prov} <ExternalLink size={13}/></a></div>}
+ {loc&&!shown.length&&<div className="hp-empty-box"><Info size={18}/><p>Kontak BPBD untuk <b>{loc.kab||loc.prov||"wilayah Anda"}</b> belum tersimpan di BUMITRA. Nomor yang belum terverifikasi sengaja tidak ditampilkan; gunakan 112, 115, 117 di atas atau cari kontak resminya.</p><a className="hp-link" href={bpbdSearch} target="_blank" rel="noreferrer">Cari kontak BPBD {loc.kab||loc.prov} <ExternalLink size={13}/></a></div>}
  {loc&&loc.inSumut&&!loc.isMedan&&<div className="hp-empty-box"><Info size={18}/><p>Kontak BPBD <b>{loc.kab||"kabupaten/kota Anda"}</b> belum tersimpan. Yang tampil di bawah adalah tingkat provinsi.</p><a className="hp-link" href={bpbdSearch} target="_blank" rel="noreferrer">Cari kontak BPBD {loc.kab} <ExternalLink size={13}/></a></div>}
  {!!shown.length&&<div className="hp-grid">{shown.map(c=><article className="hp-card" key={c.title}><div className="hp-card-top"><span className="hp-ic">{c.icon}</span><span className="hp-badge">{c.area}</span></div><h4>{c.title}</h4><strong className="hp-num sm">{c.detail}</strong><p>{c.desc}</p><small className="hp-addr"><MapPin size={13}/> {c.addr}</small><div className="hp-actions"><a className="hp-call" href={`tel:${c.phone}`}><Phone size={14}/> Hubungi</a><a className="hp-link" href={c.url} target="_blank" rel="noreferrer">{c.label} <ExternalLink size={13}/></a></div></article>)}</div>}</section>
 
@@ -48,8 +49,10 @@ function HelpPage(){
 }
 
 function Home({navigate,openChat}){
+ const [showVideo,setShowVideo]=useState(false);
  return <main id="home">
-  <section className="hero hero-redesign"><div className="hero-photo" aria-hidden="true"><picture>{HERO_BG.srcMobile&&<source media="(max-width:760px)" srcSet={HERO_BG.srcMobile}/>}<img className="hero-bg-img" src={HERO_BG.src} alt="" decoding="async" fetchpriority="high" draggable="false" style={{"--pos-d":HERO_BG.positionDesktop,"--pos-m":HERO_BG.positionMobile}}/></picture></div><div className="hero-shade"></div><div className="hero-content"><span className="hero-kicker"><ShieldCheck size={15}/> EDUKASI • KESIAPSIAGAAN • LINGKUNGAN</span><h1>Kenali bahayanya.<br/><em>Siapkan diri bersama.</em></h1><p>Sahabat SIGMA membantu Anda memahami banjir, tanah longsor, cuaca, dan kebiasaan menjaga lingkungan melalui percakapan yang mudah diikuti.</p><div className="hero-actions"><button className="primary-button" onClick={()=>openChat("mulai")}>Mulai belajar <MessageCircle size={17}/></button><button className="hero-secondary" onClick={()=>navigate("map")}>Cek peta risiko <ArrowRight size={16}/></button></div><div className="hero-note"><span className="live-dot"></span> Materi edukasi dirangkum dari panduan SIGMA-BUMI</div></div><div className="hero-side-card"><div className="mini-weather-icon"><CloudSun size={24}/></div><div><small>Cuaca dan kewaspadaan</small><strong>Periksa prakiraan cuaca</strong><span>Informasi dari layanan BMKG</span></div><button onClick={()=>navigate("weather")} aria-label="Buka cuaca"><ArrowUpRight size={19}/></button></div><div className="hero-bottom-label"><span>SIGMA-BUMI</span><span>Kenali risiko. Siapkan diri.</span></div></section>
+  <section className="hero hero-redesign"><div className="hero-photo" aria-hidden="true"><picture>{HERO_BG.srcMobile&&<source media="(max-width:760px)" srcSet={HERO_BG.srcMobile}/>}<img className="hero-bg-img" src={HERO_BG.src} alt="" decoding="async" fetchpriority="high" draggable="false" style={{"--pos-d":HERO_BG.positionDesktop,"--pos-m":HERO_BG.positionMobile}}/></picture></div><div className="hero-shade"></div><div className="hero-content"><span className="hero-kicker"><ShieldCheck size={15}/> EDUKASI • KESIAPSIAGAAN • LINGKUNGAN</span><h1>Kenali bahayanya.<br/><em>Siapkan diri bersama.</em></h1><p>Sahabat BUMITRA membantu Anda memahami banjir, tanah longsor, cuaca, dan kebiasaan menjaga lingkungan melalui percakapan yang mudah diikuti.</p><div className="hero-actions"><button className="primary-button" onClick={()=>openChat("mulai")}>Mulai belajar <MessageCircle size={17}/></button><button className="hero-secondary" onClick={()=>navigate("map")}>Cek peta risiko <ArrowRight size={16}/></button><button className="hero-secondary hero-video-btn" onClick={()=>setShowVideo(true)} aria-haspopup="dialog"><Play size={16}/> Klik video</button></div><div className="hero-note"><span className="live-dot"></span> Materi edukasi dirangkum dari panduan BUMITRA</div></div><div className="hero-side-card"><div className="mini-weather-icon"><CloudSun size={24}/></div><div><small>Cuaca dan kewaspadaan</small><strong>Periksa prakiraan cuaca</strong><span>Informasi dari layanan BMKG</span></div><button onClick={()=>navigate("weather")} aria-label="Buka cuaca"><ArrowUpRight size={19}/></button></div><div className="hero-bottom-label"><span>{SITE.short}</span><span>Kenali risiko. Siapkan diri.</span></div></section>
+ {showVideo&&<VideoModal onClose={()=>setShowVideo(false)}/>}
 </main>
 }
 
@@ -65,13 +68,13 @@ export default function App(){
   return()=>{window.removeEventListener("scroll",onScroll);window.removeEventListener("resize",onScroll);};
  },[]);
  return <div className="app-shell">
-  <header className="site-header"><button className="brand" onClick={()=>navigate("home")} aria-label="SIGMA-BUMI beranda"><span className="brand-mark"><Mountain size={24}/><Leaf size={13}/></span><span><strong>SIGMA-BUMI</strong><small>Sahabat Siaga Bencana</small></span></button><nav className={`main-nav ${mobileNav?"show":""}`} aria-label="Navigasi utama">{navItems.map(([label,id])=><button key={id} className={active===id?"active":""} onClick={()=>navigate(id)}>{label}</button>)}</nav><div className="header-actions"><button className="mobile-menu" aria-label="Buka menu" onClick={()=>setMobileNav(v=>!v)}>{mobileNav?<X/>:<Menu/>}</button></div></header>
+  <header className="site-header"><button className="brand" onClick={()=>navigate("home")} aria-label="BUMITRA beranda"><span className="brand-mark"><Mountain size={24}/><Leaf size={13}/></span><span><strong>BUMITRA</strong><small>Transformasi Digital Kebencanaan</small></span></button><nav className={`main-nav ${mobileNav?"show":""}`} aria-label="Navigasi utama">{navItems.map(([label,id])=><button key={id} className={active===id?"active":""} onClick={()=>navigate(id)}>{label}</button>)}</nav><div className="header-actions"><button className="mobile-menu" aria-label="Buka menu" onClick={()=>setMobileNav(v=>!v)}>{mobileNav?<X/>:<Menu/>}</button></div></header>
   <Home navigate={navigate} openChat={openChat}/>
   <section id="map" className="page-section"><RiskMap/></section>
   <section id="weather" className="page-section alt"><WeatherPage/></section>
   <section id="help" className="page-section"><HelpPage/></section>
   <section id="about" className="page-section alt"><TentangSection/></section>
-  <footer className="site-footer" id="contact"><KontakKomentar/><div className="footer-top"><button className="brand footer-brand" onClick={()=>navigate("home")}><span className="brand-mark"><Mountain size={24}/><Leaf size={13}/></span><span><strong>SIGMA-BUMI</strong><small>Sahabat Siaga Bencana</small></span></button><p>Kenali bahayanya, lindungi keluarga, jaga lingkungan.</p></div><div className="footer-bottom"><span>© {new Date().getFullYear()} SIGMA-BUMI · Prototipe edukasi</span><span>Untuk keputusan keselamatan, ikuti informasi resmi dan arahan petugas.</span></div></footer>
+  <footer className="site-footer" id="contact"><KontakKomentar/><div className="footer-top"><button className="brand footer-brand" onClick={()=>navigate("home")}><span className="brand-mark"><Mountain size={24}/><Leaf size={13}/></span><span><strong>BUMITRA</strong><small>Transformasi Digital Kebencanaan</small></span></button><p>{SITE.full}</p></div><div className="footer-bottom"><span>© {new Date().getFullYear()} BUMITRA · Prototipe edukasi</span><span>Untuk keputusan keselamatan, ikuti informasi resmi dan arahan petugas.</span></div></footer>
   <Chatbot/>
  </div>
 }

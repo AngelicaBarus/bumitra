@@ -1,18 +1,18 @@
 import { useEffect, useState } from "react";
 import { HeartHandshake, Info, MapPin, Send, ShieldCheck } from "lucide-react";
-import { CONTACT } from "../config.js";
+import { CONTACT, SITE } from "../config.js";
 
 const TENTANG = [
-  { icon: ShieldCheck, title: "Edukasi kesiapsiagaan", desc: "Materi banjir, tanah longsor, dan cuaca disusun agar mudah dipahami, lewat percakapan dengan Sahabat SIGMA." },
+  { icon: ShieldCheck, title: "Edukasi kesiapsiagaan", desc: "Materi banjir, tanah longsor, dan cuaca disusun agar mudah dipahami, lewat percakapan dengan Sahabat BUMITRA." },
   { icon: MapPin, title: "Data dari sumber resmi", desc: "Peta risiko memakai data InaRISK BNPB, prakiraan cuaca dari BMKG, dan kontak bantuan dari situs pemerintah." },
   { icon: HeartHandshake, title: "Untuk semua warga", desc: "Dibuat sebagai prototipe edukasi agar keluarga lebih siap dan peduli lingkungan sebelum bencana terjadi." },
 ];
 
 export function TentangSection() {
   return <section className="hm-sec hm-about" aria-labelledby="tentang-h">
-    <div className="hm-head"><span className="hm-eyebrow">TENTANG</span><h2 id="tentang-h">Tentang SIGMA-BUMI</h2><p>SIGMA-BUMI (Sahabat Siaga Bencana) adalah website edukasi untuk membantu masyarakat mengenali risiko banjir dan tanah longsor, memantau cuaca, dan mengetahui ke mana mencari bantuan.</p></div>
+    <div className="hm-head"><span className="hm-eyebrow">TENTANG</span><h2 id="tentang-h">Tentang BUMITRA</h2><p><b>{SITE.full}</b>. BUMITRA adalah website edukasi untuk membantu masyarakat mengenali risiko banjir dan tanah longsor, memantau cuaca, dan mengetahui ke mana mencari bantuan.</p></div>
     <div className="hm-about-grid">{TENTANG.map((t) => { const I = t.icon; return <article key={t.title}><span><I size={24}/></span><h3>{t.title}</h3><p>{t.desc}</p></article>; })}</div>
-    <p className="hm-about-note"><Info size={17}/> SIGMA-BUMI bukan sumber peringatan resmi. Untuk keputusan keselamatan, selalu ikuti informasi BMKG, BNPB/BPBD, dan arahan petugas setempat.</p>
+    <p className="hm-about-note"><Info size={17}/> BUMITRA bukan sumber peringatan resmi. Untuk keputusan keselamatan, selalu ikuti informasi BMKG, BNPB/BPBD, dan arahan petugas setempat.</p>
   </section>;
 }
 
@@ -31,7 +31,7 @@ export function KontakKomentar() {
       const r = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(tujuan)}`, {
         method: "POST",
         headers: { "Content-Type": "application/json", Accept: "application/json" },
-        body: JSON.stringify({ name: nama.trim() || "Warga (tanpa nama)", email: email.trim() || undefined, message: isi.trim(), _subject: "Komentar baru dari website SIGMA-BUMI", _template: "table", _captcha: "false" }),
+        body: JSON.stringify({ name: nama.trim() || "Warga (tanpa nama)", email: email.trim() || undefined, message: isi.trim(), _subject: "Komentar baru dari website BUMITRA", _template: "table", _captcha: "false" }),
       });
       const j = await r.json().catch(() => ({}));
       if (!r.ok || String(j.success) === "false") throw new Error(j.message || "gagal");

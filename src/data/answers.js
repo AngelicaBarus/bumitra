@@ -33,7 +33,7 @@ export const answers = {
   "apa yang bisa dilakukan bersama tetangga?": `${L[4][3]} Menjaga lingkungan bukan hanya tugas pemerintah, tetapi juga tanggung jawab kita bersama.`,
 
   "apa yang perlu disiapkan sebelum bencana?": `${ph("banjir", 0)}\n\n${ph("longsor", 0)}`,
-  "apa saja yang perlu ada di tas darurat?": "Panduan SIGMA-BUMI menyebut: “Siapkan tas berisi barang penting” dan “Simpan dokumen penting di tempat aman.” Daftar isi tas yang lebih rinci belum ditetapkan di panduan ini, jadi sesuaikan dengan kebutuhan keluarga dan arahan petugas setempat.",
+  "apa saja yang perlu ada di tas darurat?": "Panduan BUMITRA menyebut: “Siapkan tas berisi barang penting” dan “Simpan dokumen penting di tempat aman.” Daftar isi tas yang lebih rinci belum ditetapkan di panduan ini, jadi sesuaikan dengan kebutuhan keluarga dan arahan petugas setempat.",
   "bagaimana membuat keluarga lebih siap?": `Langkah yang dianjurkan panduan:\n• ${D.banjir.phases[0][1][1]}\n• ${D.banjir.phases[0][1][2]}\n• ${D.banjir.phases[0][1][3]}\n• ${D.longsor.phases[0][1][2]}\n• ${D.longsor.phases[0][1][3]}\n• ${langkahBantuan[3]}`,
 
   "apa yang harus dilakukan saat keadaan darurat?": `Utamakan keselamatan Anda dan keluarga!\n${num(langkahBantuan)}\n\nUntuk keadaan darurat di Kota Medan, informasi layanan 112 tersedia di portal Medan Smart City: https://portalsmartcity.medan.go.id/welcome/detail_call`,

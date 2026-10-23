@@ -1,9 +1,14 @@
-# SIGMA-BUMI
+# BUMITRA: Transformasi Digital untuk Mitigasi Bencana, Adaptasi Iklim, dan Pelestarian Lingkungan
+
+## Revisi terbaru
+- Nama website diganti menjadi BUMITRA (judul tab, beranda, tentang, footer).
+- Halaman Cuaca: tombol mikrofon untuk bertanya dengan suara; jawaban dibacakan berdasarkan data BMKG yang tampil (butuh Chrome/Edge, HTTPS, dan izin mikrofon).
+- Beranda: tombol "Klik video" membuka pemutar video. Atur sumber video di `src/config.js` (file di `public/video/` atau `youtubeId`).
 
 Prototipe website edukasi kesiapsiagaan banjir dan tanah longsor.
 
 ## Perubahan pada versi 6
-- Materi edukasi banjir, tanah longsor, cuaca, peta risiko, persiapan keluarga, bantuan, dan kepedulian lingkungan dipusatkan ke chatbot Sahabat SIGMA.
+- Materi edukasi banjir, tanah longsor, cuaca, peta risiko, persiapan keluarga, bantuan, dan kepedulian lingkungan dipusatkan ke chatbot Sahabat BUMITRA.
 - Menu navigasi dibuat lebih ringkas: Beranda, Peta Risiko, Cuaca, dan Bantuan.
 - Pertanyaan edukasi sudah disediakan per kategori dan dapat dipilih tanpa harus mengetik.
 - Pengguna tetap dapat menulis pertanyaan sendiri; jawaban chatbot berbasis aturan/kata kunci dari materi panduan, bukan model AI generatif.

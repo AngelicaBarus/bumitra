@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import VoiceWeather from "./VoiceWeather.jsx";
 import {
   Cloud, CloudDrizzle, CloudFog, CloudLightning, LocateFixed, Eye, CloudRain, CloudSun, Droplets,
   Info, MapPin, Search, ShieldCheck, Sun, Thermometer, Wind, TriangleAlert, X
@@ -260,6 +261,8 @@ export default function WeatherPage() {
           <p className="weather-search-hint">Prakiraan BMKG tersedia per desa/kelurahan. Pilih sampai tingkat desa/kelurahan untuk menampilkan cuaca.{loadedLabel && <> Wilayah terpilih: <b>{loadedLabel}</b>.</>}</p>
         </>}
       </section>
+
+      <VoiceWeather data={results && !loading ? results : null} />
 
       {loading && <div className="weather-loading"><span className="spinner"/> Mengambil prakiraan dari BMKG…</div>}
       {error && !loading && <div className="weather-error"><Info size={18}/><span>{error}</span></div>}
