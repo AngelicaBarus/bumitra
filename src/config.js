@@ -15,7 +15,7 @@ export const VIDEO = {
   title: "Video Pengenalan BUMITRA",
   src: "/video/profil.mp4",
   poster: "",
-  youtubeId: "",
+  youtubeId: "HS615PIxxlY",
   driveId: "12GkuRzUDdQV_UanfJgvK4i-fyxDNiQVl",
 };
 
